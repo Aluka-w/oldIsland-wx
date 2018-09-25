@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "w-like": "/components/like/index"
+  }
+}

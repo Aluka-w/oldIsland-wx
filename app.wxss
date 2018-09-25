@@ -1,0 +1,5 @@
+/* page 指的是页面, 可以看wxml最外层就是page标签 */
+page{
+  font-family: "PingFangSC-Thin";
+  font-size: 32rpx;
+}

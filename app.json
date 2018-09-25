@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/classic/classic",
+    "pages/book/book"
+  ],
+  "window": {
+    "navigationBarTitleText": "旧岛小样",
+    "navigationBarBackgroundColor": "#2d61b4",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true,
+    "backgroundColorBottom": "tomato",
+    "onReachBottomDistance": 50
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/classic/classic",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/book/book",
+        "text": "书单"
+      }
+    ],
+    "backgroundColor": "#1b77a9",
+    "selectedColor": "tomato",
+    "color": "#333"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}
