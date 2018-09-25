@@ -4,9 +4,10 @@
   padding: 10rpx;
 }
 .container image {
-  width: 40rpx;
-  height: 40rpx;
-}.container text {
+  width: 30rpx;
+  height: 30rpx;
+}
+.container text {
   font-size: 24rpx;
   color: #bbb;
   line-height: 24rpx;

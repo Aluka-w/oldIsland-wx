@@ -1,30 +1,43 @@
 {
   "pages": [
     "pages/classic/classic",
-    "pages/book/book"
+    "pages/book/book",
+    "pages/like/like"
   ],
   "window": {
     "navigationBarTitleText": "旧岛小样",
-    "navigationBarBackgroundColor": "#2d61b4",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true,
     "backgroundColorBottom": "tomato",
     "onReachBottomDistance": 50
   },
   "tabBar": {
+    "borderStyle": "black",
+    
     "list": [
       {
         "pagePath": "pages/classic/classic",
-        "text": "首页"
+        "text": "流行",
+        "iconPath": "./images/tablist/classic.png",
+        "selectedIconPath": "./images/tablist/classic@highlight.png"
       },
       {
         "pagePath": "pages/book/book",
-        "text": "书单"
+        "text": "书单",
+        "iconPath": "./images/tablist/book.png",
+        "selectedIconPath": "./images/tablist/book@highlight.png"
+      },
+      {
+        "pagePath": "pages/like/like",
+        "text": "喜欢",
+        "iconPath": "./images/tablist/my.png",
+        "selectedIconPath": "./images/tablist/my@highlight.png"
       }
     ],
-    "backgroundColor": "#1b77a9",
-    "selectedColor": "tomato",
-    "color": "#333"
+    "backgroundColor": "#fff",
+    "color": "#c7c7c7",
+    "selectedColor": "#131313"
   },
   "networkTimeout": {
     "request": 10000,

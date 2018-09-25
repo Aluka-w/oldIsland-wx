@@ -1,1 +1,16 @@
-<w-like like="{{classicData.like_status}}" count="{{classicData.fav_nums}}"/> 
+<view class="header">
+  <w-epsoide 
+    index="{{classicData.index}}"
+    class="epsoide"
+  />
+  <w-like 
+    like="{{classicData.like_status}}" 
+    count="{{classicData.fav_nums}}"
+    bind:like="onLike"
+    class="like"
+  /> 
+</view>
+<w-movie 
+  img="{{classicData.image}}" 
+  content="{{classicData.content}}"
+/>

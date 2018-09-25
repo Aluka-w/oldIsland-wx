@@ -19,13 +19,19 @@ Component({
 
   methods: {
     onLike: function () {
+      // 自定义事件
       let { like, count } = this.properties
       count = like ? count - 1 : count + 1
-      like = ! like
+      like = !like
       this.setData({
         like,
         count
       })
+      // triggerEvent, 激活自定义事件
+      let behavior = like ? 'like' : 'cancel'
+      this.triggerEvent('like', {
+        behavior
+      },{})
     }
   }
 
