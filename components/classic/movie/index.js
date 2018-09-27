@@ -1,16 +1,13 @@
 // components/classic/movie/index.js
+import { classicBeh } from '../classic-behavior';
 Component({
+  behaviors: [classicBeh],
   properties: {
-    img: String,
-    content: String
+    
   },
   data: {
     
   },
-
-  /**
-   * 组件的方法列表
-   */
   methods: {
 
   }

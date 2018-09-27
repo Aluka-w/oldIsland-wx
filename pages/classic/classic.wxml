@@ -1,16 +1,44 @@
-<view class="header">
-  <w-epsoide 
-    index="{{classicData.index}}"
-    class="epsoide"
+<view class="wrapper">
+  <view class="header">
+    <w-episode 
+      index="{{classicData.index}}"
+      class="episode"
+    />
+    <w-like 
+      like="{{like_status}}" 
+      count="{{fav_nums}}"
+      bind:like="onLike"
+      class="like"
+    /> 
+  </view>
+  <w-movie 
+    hidden="{{classicData.type != 100}}"
+    img="{{classicData.image}}" 
+    content="{{classicData.content}}"
+    bind:left="onNext"
+    bind:right="onPrev"
   />
-  <w-like 
-    like="{{classicData.like_status}}" 
-    count="{{classicData.fav_nums}}"
-    bind:like="onLike"
-    class="like"
-  /> 
+    <w-music 
+      wx:if="{{classicData.type === 200}}"
+      img="{{classicData.image}}" 
+      content="{{classicData.content}}"
+      bind:left="onNext"
+      bind:right="onPrev"
+      mySrc="{{classicData.url}}"
+    />
+    <w-essay 
+      hidden="{{classicData.type != 300}}"
+      img="{{classicData.image}}" 
+      content="{{classicData.content}}"
+      bind:left="onNext"
+      bind:right="onPrev"
+    />
+  <w-navi 
+    class="navi" 
+    title="{{classicData.title}}"
+    first="{{first}}"
+    lastest="{{lastest}}"
+    bind:left="onNext"
+    bind:right="onPrev"
+  />
 </view>
-<w-movie 
-  img="{{classicData.image}}" 
-  content="{{classicData.content}}"
-/>

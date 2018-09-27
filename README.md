@@ -204,21 +204,16 @@
 
   1. 自定义组件放在components文件夹下 -> 创建的时候是创建的components而不是page -> 区别就是app.json中是找不到路径的 -> 否则引用组件时候是找不到的
 
-  2. wxss:
-  
-    1. 在组件wxss中不应使用ID选择器、属性选择器和标签名选择器
+  2. wxss: 在组件wxss中`不应使用``ID选择器`、`属性选择器`和`标签名选择器`
   
   3. js:
+      1. Component构造器: 相当于页面的Page({})
 
-    1. Component构造器: 相当于页面的Page({})
-
-    2. properties => 相当于Vue的props
+      2. properties => 相当于Vue的props => 调用`this.properties.xxx`
 
   4. wxml: 
 
-  5. json: 
-
-    1. `"component": true`  // 表示是组件
+  5. json:  `"component": true`  // 表示是组件
 
 
 ### 使用自定义组件的组件
@@ -235,22 +230,136 @@
   ```
   2. 使用: 直接使用json中命名的名称
 
-### 组件传值
+### 组件的slot用法(多个slot看文档)
 
-  1. 
-
+  1. 自定义组件
+```js
+  <view class="wrapper">
+    // 会把组件的子节点自动的填充在此地
+    <slot></slot>
+  </view>
+```
+  2. 引用组件的page
+```js
+  <w-navi>
+    <view>
+      我是子节点
+    </view>
+  </w-navi>
+```
 
 # 项目
 
-### 自定义事件
 
-1. 流程
 
-      子组件的点击 -> 知道喜欢或者不喜欢的状态 -> 
-      再通过`this.triggerEvent('自定义事件名(like)', {需要传递的状态(like/cancel)}, {event冒泡捕获等})` -> 在父组件中`bind:like="onLike"` ->
-      根据event对象里面的detail作为参数再去请求
+### 父子组件通信(page监听component组件的事件)
 
-2. 意义: 子组件只负责视图渲染, 然后告诉父组件是喜欢还是取消喜欢
+1. 父 -> 子  properties
 
-3. 知识点: 自定义事件 和 `this.triggerEvent('', {}, {})`激活自定义事件 
+2. 子 -> 父: 通过事件
+  1. 流程
 
+        子组件的点击 -> 知道喜欢或者不喜欢的状态 -> 
+        再通过`this.triggerEvent('自定义事件名(like)', {需要传递的状态(like/cancel)}, {event冒泡捕获等})` -> 在父组件中`bind:like="onLike"` ->
+        根据event对象里面的detail作为参数再去请求
+
+  2. 意义: 子组件只负责视图渲染, 然后告诉父组件是喜欢还是取消喜欢
+
+  3. 知识点: 自定义事件 和 `this.triggerEvent('', {}, {})`激活自定义事件 
+
+### 组件间的通信(平级传值)
+
+
+### Component的 behavior
+
+1. 意义: 组件间需要复用的代码, 抽取到`behavior.js`文件中进行复用, 面向对象的继承, 多继承(组件可以继承多个)
+
+2. 定义: 与Component的js定义完全一致(需要把Component -> Behavior)
+```js
+  <!-- behavior.js -->
+  let behavior = Behavior({
+    properties: {
+
+    },
+    data: {
+
+    },
+    methods: {
+
+    }
+  })
+  export { behavior }
+```
+
+3. 引用: 
+```js
+  <!-- Component.js -->
+  import { behavior } from 'behavior.js'
+  Component({
+    // 直接加behaviors, 就相当于继承了
+    behaviors: [behavior]
+    properties: {
+
+    },
+  })
+```
+4. 覆盖规则: Component会覆盖behavior里面定义的相同`属性`, 而`生命周期`会依次的执行, component最后执行
+
+### 本地存储功能
+
+1. 存储: 同步`wx.setStorageSync('key', value)`, 异步`wx.setStorage('key', value)`
+
+2. 获取: 同步`wx.getStorageSync('key')`, 异步`wx.getStorage('key')`
+
+
+### 小程序的缓存
+
+1. 根据期刊的不同生成不同key -> 点击下一期的时候, 判断是否有这个key -> 有就直接`wx.getStorageSync('key')` -> 没有就`wx.setStorageSync('key', value)`
+
+2. 导致的问题: 点赞数变化 -> 取到的还是`strorage`存储的数据 -> 把点赞抽取成为新的接口
+
+### wx:if 和 wx:hidden
+
+1. wx:if: 惰性渲染
+
+2. wx:hidden: 直接在组件标签上使用是没用的, 小程序默认hidden属性是你自身的定义的属性, 而不是小程序定义的hidden
+
+    * 解决: 页面中: `<组件 hidden="{{true}}" />`  ==>  
+          
+        组件的Component中: `组件的Component中({ properties: hidde})` ==> 
+
+        组件的wxml中:  `<view hidde="{{hidden}}"></view>`
+
+### 播放音乐的Api
+
+1. 老版(一个一个api, 有bug)
+
+2. 新版(背景音乐播放管理)
+  <!-- 直接在页面操作 -->
+  1. `let mMgr = wx.getBackgroundAudioManager()`返回对象
+
+  2. `mMgr.pause()`, 直接会暂停
+
+  3. `mMgr.src = src`, 更改src就会重新播放
+
+  4. `mMgr.paused`, Boolean, 暂停是true
+
+  <!-- 监听总控开关的变化, 即出来小程序后音乐还在播放 -->
+  ```js
+    // 播放
+    mMgr.onPlay(() => {
+      this._recoverMusic()
+    })
+    // 暂停
+    mMgr.onPause(() => {
+      this._recoverMusic()
+    })
+    // 关闭
+    mMgr.onStop(() => {
+      this._recoverMusic()
+    })
+    // 播放完毕
+    mMgr.onEnded(() => {
+      this._recoverMusic()
+    })
+  ```
