@@ -1,0 +1,20 @@
+<!--pages/book-detail/book-detail.wxml-->
+<view class="container">
+  <view class="header">
+    <image src="{{detail.image}}"/>
+    <text class="title">{{detail.title}}</text>
+    <text class="author">{{detail.author}}</text>
+  </view>
+  <view class="sub-container">
+    <text class="headline">短评</text>
+    <view class="comment-container">
+      <block wx:for="{{comments}}" wx:key="{{index}}">
+        <w-tag 
+          text="{{item.content}}"
+        >
+          <text class="num" slot="after">{{'+' + item.nums}}</text>
+        </w-tag>
+      </block>
+    </view>
+  </view>
+</view>

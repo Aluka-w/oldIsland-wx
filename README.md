@@ -90,6 +90,8 @@
 
 ### <block/> 并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，只接受控制属性。
 
+1. 一般放在列表循环渲染中
+
 ### 数据绑定: `<view> {{message}} </view>`
 
   1. Mustache 语法
@@ -363,3 +365,12 @@
       this._recoverMusic()
     })
   ```
+
+### 页面跳转(点击 -> 书籍详情)
+
+1. 方案一: 组件中
+  组件内部`wx.navigateTo`实现页面跳转
+  
+
+2. 方案二: page触发自定义事件, 
+  `<w-book bind:triggerEvent="onClick()">` ->  实现传值, 再调用`wx.navigateTo`实现页面跳转

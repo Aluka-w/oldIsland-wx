@@ -27,7 +27,7 @@ Component({
           playing: true
         })
         mMgr.src = this.properties.mySrc
-        mMgr.title = "test"
+        mMgr.title = ""
       }
     },
     // 切换音乐的时候其他页面需要暂停

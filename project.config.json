@@ -37,8 +37,21 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 1,
+			"list": [
+				{
+					"id": -1,
+					"name": "书单页面",
+					"pathName": "pages/book/book",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "书单详情页面",
+					"pathName": "pages/book-detail/book-detail",
+					"query": "id=7"
+				}
+			]
 		}
 	}
 }

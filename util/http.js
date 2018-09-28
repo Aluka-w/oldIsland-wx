@@ -43,8 +43,12 @@ export class HTTP {
   }
   // 根据错误码的不同, 展示不同的错误提示, 下划线代表私有方法
   _showErr (err) {
+    if (!err) {
+      err = 1
+    }
+    const tip = tips[err] ? tips[err] : tips[1]
     wx.showToast({
-      title: tips[err],
+      title: tip,
       icon: 'none',
       duration: 2000
     })
